@@ -35,10 +35,17 @@ CRON_SECRET = "tv_arena_cron_secret_2026"
 
 app = FastAPI(title="TV Arena API")
 
-app.add_middleware(CORSMiddleware, allow_origins=[
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
         "http://localhost:3000",
-        "https://tv-arena.vercel.app",  
-    ], allow_credentials=True, allow_methods=["*"], allow_headers=["*"])
+        "https://tv-arena-v5db.vercel.app",
+    ],
+    allow_origin_regex=r"https://tv-arena(-[a-zA-Z0-9-]+)?\.vercel\.app",
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # 1. Leaderboard Endpoint
 @app.get("/api/leaderboard", response_model=LeaderboardResponse)
