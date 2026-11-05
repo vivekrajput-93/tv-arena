@@ -27,7 +27,7 @@ export const apiSlce = createApi({
         if (genre) queryParams.append("genre", genre);
         if (limit) queryParams.append("limit", limit.toString());
         if (offset) queryParams.append("offset", offset.toString());
-        return `/leaderboard?${queryParams}`;
+        return `/api/leaderboard?${queryParams}`;
       },
     }),
     searchShows: builder.query<ShowSearchResponse, ShowSearchRequestParams>({
@@ -35,26 +35,26 @@ export const apiSlce = createApi({
         const queryParams = new URLSearchParams();
         queryParams.append("q", q);
         queryParams.append("limit", limit.toString());
-        return `/shows/search?${queryParams.toString()}`;
+        return `/api/shows/search?${queryParams.toString()}`;
       },
     }),
 
     compareShows: builder.query<ArenaResponse, string[]>({
       query: (showSlugs) => {
         const slugs = showSlugs.join(",");
-        return `/arena/compare?slugs=${encodeURIComponent(slugs)}`;
+        return `/api/arena/compare?slugs=${encodeURIComponent(slugs)}`;
       },
     }),
 
     getGameRound: builder.query<GameRoundResponse, void>({
       query: () => {
-        return `/game/round`;
+        return `/api/game/round`;
       },
     }),
 
     verifyGameGuess: builder.mutation<GameVerifyResponse, GameVerifyRequest>({
       query: (body) => ({
-        url: "/game/verify",
+        url: "/api/game/verify",
         method: "POST",
         body,
       }),
